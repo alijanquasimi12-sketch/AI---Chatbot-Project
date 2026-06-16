@@ -3,22 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARIA — AI Chatbot | DecodeLabs Project 1</title>
-  <meta name="description" content="ARIA — Artificial Rule-based Intelligent Assistant. A professional rule-based AI chatbot built for DecodeLabs AI Engineering Project 1, Batch 2026." />
-  <meta name="keywords" content="AI chatbot, rule-based AI, DecodeLabs, Python, artificial intelligence" />
-  <meta name="author" content="DecodeLabs AI Engineering Team" />
+  <title>ARIA — KMA² Intelligence Framework</title>
+  <meta name="description" content="ARIA — Artificial Rule-based Intelligent Assistant powered by the KMA² Intelligence Framework. A premium AI chatbot for AI, programming, career guidance, and general knowledge." />
+  <meta name="keywords" content="AI chatbot, KMA squared, rule-based AI, Python, artificial intelligence, career guidance" />
+  <meta name="author" content="KMA² Signature Series" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet" />
 
-  <!-- Favicon inline SVG -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+  <!-- Favicon: KMA² Logo -->
+  <link rel="icon" type="image/png" href="/static/images/kma2-logo.png" />
 
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LOADING SCREEN
+  ════════════════════════════════════════════════════════════ -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-logo-wrap">
+        <div class="loading-logo-glow"></div>
+        <img src="/static/images/kma2-logo.png" alt="KMA² Logo" class="loading-logo" id="loadingLogo" />
+      </div>
+      <div class="loading-text-wrap">
+        <p class="loading-brand">K.M.A²</p>
+        <p class="loading-sub">KMA Squares Signature Series</p>
+        <div class="loading-bar-track">
+          <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-status" id="loadingStatus">Initializing intelligence framework...</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════════════════════
        SIDEBAR
@@ -26,10 +46,12 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="logo-area">
-        <div class="logo-icon">🤖</div>
+        <div class="logo-icon-wrap">
+          <img src="/static/images/kma2-logo.png" alt="KMA²" class="sidebar-logo-img" />
+        </div>
         <div class="logo-text">
           <span class="logo-name">ARIA</span>
-          <span class="logo-sub">v1.0 — DecodeLabs</span>
+          <span class="logo-sub">KMA² Intelligence Framework</span>
         </div>
       </div>
       <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle sidebar">
@@ -42,15 +64,27 @@
     </div>
 
     <div class="sidebar-content">
+      <!-- Online Status -->
+      <div class="aria-status-card">
+        <div class="status-pulse-dot"></div>
+        <div class="status-info">
+          <span class="status-name">ARIA Online</span>
+          <span class="status-desc">Rule-Based Engine Active</span>
+        </div>
+      </div>
+
       <!-- Quick topics -->
       <div class="sidebar-section">
         <p class="sidebar-section-title">Quick Topics</p>
-        <button class="quick-btn" data-msg="What is artificial intelligence?">🤖 What is AI?</button>
-        <button class="quick-btn" data-msg="Tell me about Python">🐍 Python Tips</button>
-        <button class="quick-btn" data-msg="Tell me a joke">😄 Tell a Joke</button>
-        <button class="quick-btn" data-msg="Motivate me!">💪 Motivation</button>
-        <button class="quick-btn" data-msg="What time is it?">🕐 Current Time</button>
-        <button class="quick-btn" data-msg="Help">🆘 Help Menu</button>
+        <button class="quick-btn" data-msg="What is artificial intelligence?">What is AI?</button>
+        <button class="quick-btn" data-msg="Tell me about Python programming">Python Guide</button>
+        <button class="quick-btn" data-msg="What is machine learning?">Machine Learning</button>
+        <button class="quick-btn" data-msg="How to become a software engineer?">Career Path</button>
+        <button class="quick-btn" data-msg="Give me study tips">Study Tips</button>
+        <button class="quick-btn" data-msg="Motivate me!">Motivation</button>
+        <button class="quick-btn" data-msg="Who developed you?">About Developer</button>
+        <button class="quick-btn" data-msg="What is DecodeLabs?">DecodeLabs</button>
+        <button class="quick-btn" data-msg="Help">Full Help Menu</button>
       </div>
 
       <!-- Session stats -->
@@ -68,20 +102,20 @@
         </div>
       </div>
 
-      <!-- About -->
-      <div class="sidebar-section about-section">
-        <p class="sidebar-section-title">About ARIA</p>
-        <p class="about-text">
-          <strong>ARIA</strong> is an Artificial Rule-based Intelligent Assistant
-          built as DecodeLabs AI Project 1.
-          It demonstrates <em>control flow</em>, <em>decision-making logic</em>,
-          and <em>basic AI concepts</em> through pure if-else programming.
-        </p>
-        <div class="tech-tags">
-          <span class="tech-tag">Python 3</span>
-          <span class="tech-tag">Flask</span>
-          <span class="tech-tag">Rule-Based AI</span>
-          <span class="tech-tag">NLP Basics</span>
+      <!-- Knowledge coverage -->
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Knowledge Coverage</p>
+        <div class="knowledge-tags">
+          <span class="k-tag">AI & ML</span>
+          <span class="k-tag">Python</span>
+          <span class="k-tag">Career</span>
+          <span class="k-tag">Data Science</span>
+          <span class="k-tag">Algorithms</span>
+          <span class="k-tag">Web Dev</span>
+          <span class="k-tag">Cloud</span>
+          <span class="k-tag">Security</span>
+          <span class="k-tag">Math</span>
+          <span class="k-tag">Motivation</span>
         </div>
       </div>
     </div>
@@ -94,7 +128,13 @@
         </svg>
         New Session
       </button>
-      <p class="footer-credit">Powered by <strong>DecodeLabs</strong></p>
+      <div class="footer-brand">
+        <img src="/static/images/kma2-logo.png" alt="KMA²" class="footer-logo-img" />
+        <div class="footer-brand-text">
+          <span class="footer-brand-name">K.M.A²</span>
+          <span class="footer-brand-sub">Powered by KMA² Signature Series</span>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -114,19 +154,72 @@
           </svg>
         </button>
         <div class="chat-bot-info">
-          <div class="bot-avatar-small">🤖</div>
+          <div class="bot-avatar-wrap">
+            <img src="/static/images/kma2-logo.png" alt="ARIA" class="bot-avatar-logo" />
+            <div class="bot-online-ring"></div>
+          </div>
           <div>
             <h1 class="chat-bot-name">ARIA</h1>
             <div class="status-indicator">
               <span class="status-dot"></span>
-              <span class="status-text">Online · Rule-Based AI Engine</span>
+              <span class="status-text">Online · KMA² Intelligence Framework</span>
             </div>
           </div>
         </div>
       </div>
       <div class="chat-header-right">
-        <span class="badge">Project 1</span>
-        <span class="badge badge-outline">DecodeLabs 2026</span>
+        <span class="badge badge-silver">KMA² Signature Series</span>
+        <span class="badge badge-outline">v2.0</span>
+
+        <!-- Settings Dropdown -->
+        <div class="settings-wrapper">
+          <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          
+          <div class="settings-menu" id="settingsMenu">
+            <div class="settings-header">
+              <span>Settings</span>
+            </div>
+            
+            <div class="setting-item toggle-item">
+              <span>Light Mode</span>
+              <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            
+            <div class="setting-item toggle-item">
+              <span style="display:flex; align-items:center; gap:6px;">
+                Privacy Mode
+                <svg id="privacyLockIcon" style="display:none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <label class="switch">
+                <input type="checkbox" id="privacyToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div class="settings-divider"></div>
+            
+            <button class="setting-item action-btn" id="aboutDevBtn">
+              About Developer
+            </button>
+            <button class="setting-item action-btn" id="aboutProjBtn">
+              About Project
+            </button>
+            
+            <div class="settings-divider"></div>
+
+            <button class="setting-item action-btn text-danger" id="menuResetBtn">
+              Reset Conversation
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -135,13 +228,15 @@
 
       <!-- Welcome message -->
       <div class="message bot-message welcome-message" id="welcomeMsg">
-        <div class="message-avatar">🤖</div>
+        <div class="message-avatar">
+          <img src="/static/images/kma2-logo.png" alt="ARIA" class="msg-avatar-img" />
+        </div>
         <div class="message-bubble">
           <div class="message-text">
-            <p>👋 Hello! I'm <strong>ARIA</strong> — your <em>Artificial Rule-based Intelligent Assistant</em>!</p>
-            <p>I'm <strong>DecodeLabs AI Project 1</strong>, demonstrating how AI can be built using pure logic and control flow — no machine learning needed!</p>
-            <p>Try asking me about: <strong>AI</strong>, <strong>Python</strong>, tell me to <strong>crack a joke</strong>, ask for <strong>motivation</strong>, or just say <strong>hello</strong>!</p>
-            <p style="margin-top:12px; opacity:0.8; font-size:0.85em;">💡 Type <code>help</code> to see everything I can do.</p>
+            <p>Hello! I'm <strong>ARIA</strong> — your <em>Artificial Rule-based Intelligent Assistant</em>, powered by the <strong>KMA² Intelligence Framework</strong>.</p>
+            <p>I'm equipped with a comprehensive knowledge base covering <strong>AI & Machine Learning</strong>, <strong>programming languages</strong>, <strong>career guidance</strong>, <strong>study strategies</strong>, and much more.</p>
+            <p>Try asking me about: <strong>What is deep learning?</strong> · <strong>How to become a software engineer?</strong> · <strong>Python tips</strong> · <strong>Tell me a joke</strong></p>
+            <p style="margin-top:10px; opacity:0.7; font-size:0.82em;">Type <code>help</code> to see the complete knowledge menu.</p>
           </div>
           <span class="message-time" id="welcomeTime"></span>
         </div>
@@ -149,9 +244,11 @@
 
     </div>
 
-    <!-- Typing indicator (hidden by default) -->
-    <div class="typing-indicator" id="typingIndicator" style="display:none;" aria-label="ARIA is typing">
-      <div class="typing-avatar">🤖</div>
+    <!-- Typing indicator -->
+    <div class="typing-indicator" id="typingIndicator" style="display:none;" aria-label="ARIA is thinking">
+      <div class="typing-avatar">
+        <img src="/static/images/kma2-logo.png" alt="ARIA" class="typing-avatar-img" />
+      </div>
       <div class="typing-bubble">
         <span class="typing-dot"></span>
         <span class="typing-dot"></span>
@@ -165,7 +262,7 @@
         <textarea
           id="messageInput"
           class="message-input"
-          placeholder="Message ARIA... (Press Enter to send, Shift+Enter for new line)"
+          placeholder="Ask ARIA anything... AI, Python, career advice, or just say hello!"
           rows="1"
           maxlength="500"
           aria-label="Message input"
@@ -182,13 +279,79 @@
           </button>
         </div>
       </div>
-      <p class="input-hint">ARIA uses rule-based logic — every response is defined by if-else patterns 🧠</p>
+      <p class="input-hint">ARIA — KMA² Signature Series &nbsp;·&nbsp; Rule-Based Intelligence Engine</p>
     </div>
 
   </main>
 
   <!-- Overlay for mobile -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODALS
+  ════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay">
+    
+    <!-- About Developer Modal -->
+    <div class="custom-modal" id="devModal">
+      <div class="modal-header">
+        <h3 class="modal-title">About the Developer</h3>
+        <button class="modal-close" data-close="devModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="dev-profile">
+          <div class="dev-avatar">A</div>
+          <h4>Asjad</h4>
+          <p class="dev-subtitle">AI & Software Engineer</p>
+        </div>
+        <p>This chatbot was developed by <strong>Asjad</strong>, a technology enthusiast and aspiring AI-focused software developer.</p>
+        <p>The project demonstrates skills in:</p>
+        <ul class="modal-list">
+          <li>Chatbot Engineering & Rule-based AI</li>
+          <li>Python Backend Development (Flask)</li>
+          <li>Premium Web UI/UX Design</li>
+          <li>Problem Solving & Systems Architecture</li>
+        </ul>
+        <p>Asjad is passionate about building intelligent software systems and continuously learning modern technologies.</p>
+      </div>
+    </div>
+
+    <!-- About Project Modal -->
+    <div class="custom-modal" id="projModal">
+      <div class="modal-header">
+        <h3 class="modal-title">About ARIA & KMA²</h3>
+        <button class="modal-close" data-close="projModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="proj-logo-wrap">
+          <img src="/static/images/kma2-logo.png" alt="KMA²" />
+        </div>
+        <p><strong>ARIA</strong> is an Artificial Rule-based Intelligent Assistant powered by the <strong>KMA² Intelligence Framework</strong>.</p>
+        <p><strong>K. M. A²</strong> is the signature project identity used across software, AI, and technology projects created by Asjad. It represents innovation, engineering excellence, creativity, and continuous growth.</p>
+        <div class="settings-divider" style="margin:16px 0;"></div>
+        <p>This project was developed as part of <strong>DecodeLabs</strong>, a technology-focused learning platform helping developers build practical software through hands-on experience.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating Privacy Button -->
+  <button id="floatingPrivacyBtn" class="floating-privacy-btn" aria-label="Toggle Privacy Mode" title="Toggle Privacy Mode">
+    <svg class="privacy-icon-unlocked" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+    </svg>
+    <svg class="privacy-icon-locked" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+  </button>
+
+  <!-- Privacy Notification Toast -->
+  <div id="privacyToast" class="privacy-toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+    <span>Private Session Active</span>
+  </div>
 
   <script src="/static/js/chat.js"></script>
 </body>
