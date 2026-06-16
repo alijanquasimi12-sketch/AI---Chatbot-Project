@@ -1,14 +1,17 @@
 # 🤖 ARIA — Artificial Rule-based Intelligent Assistant
+### KMA² Signature Series
 
 <div align="center">
+
+<img src="web/static/images/kma2-logo.png" alt="KMA² Logo" width="150" />
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
 ![Flask](https://img.shields.io/badge/Flask-3.0+-green?style=for-the-badge&logo=flask)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 ![DecodeLabs](https://img.shields.io/badge/DecodeLabs-Project%201-purple?style=for-the-badge)
-![Tests](https://img.shields.io/badge/Tests-60%2B%20cases-brightgreen?style=for-the-badge)
+![Developer](https://img.shields.io/badge/Developer-Asjad-silver?style=for-the-badge)
 
-**A professional Rule-Based AI Chatbot — DecodeLabs AI Engineering Project 1, Batch 2026**
+**A professional Rule-Based AI Chatbot — Built by Asjad**
 
 *"Before you build systems that learn on their own, you must master the art of teaching a machine through explicit if-else instructions."*
 
@@ -36,18 +39,20 @@
 
 ## 🌟 Overview
 
-**ARIA** (Artificial Rule-based Intelligent Assistant) is a **professional-grade rule-based AI chatbot** built for the DecodeLabs AI Engineering Industrial Training Program. It demonstrates how intelligent conversation can be engineered using **pure control flow and decision-making logic** — the foundation of all AI systems.
+**ARIA** (Artificial Rule-based Intelligent Assistant) is a **professional-grade rule-based AI chatbot**. It demonstrates how intelligent conversation can be engineered using **pure control flow and decision-making logic** — the foundation of all AI systems.
 
-### What Makes This Special
+This specific build is the **KMA² Signature Series Portfolio Version**, customized with a premium luxury-tech aesthetic, advanced privacy controls, and a custom developer knowledge base.
+
+### 🌟 Portfolio Version Highlights
 
 | Feature | Description |
 |---------|-------------|
-| 🧠 **17 Distinct Rules** | Carefully crafted if-else decision tree |
+| 👨‍💻 **Developer Profile** | Native chatbot responses detailing the developer (Asjad) and his tech stack. |
+| 🛡️ **Quick Privacy Mode** | Floating silver lock button that blurs chat history with smooth animations. |
+| ✨ **KMA² Branding** | Premium silver metallic glow effects, custom logo integration, and glassmorphism UI. |
+| 🧠 **17+ Distinct Rules** | Carefully crafted if-else decision tree handling edge cases dynamically. |
 | 🎨 **Dual Interface** | Beautiful CLI + Modern Web UI |
-| 📊 **Session Analytics** | Conversation logging & statistics |
-| 🧪 **60+ Unit Tests** | Full coverage of all response categories |
 | 🌐 **REST API** | Flask-powered JSON API |
-| ⚡ **Zero ML Dependencies** | Pure Python stdlib for core logic |
 
 ---
 
@@ -63,6 +68,8 @@
 - 🧮 **Math Calculator** — Handles +, -, *, / operations
 - 🕐 **Time & Date** — Real-time clock and calendar queries
 - 🌤 **Weather** — Smart redirect to weather APIs
+- 👨‍💻 **Developer & Portfolio** — Explains developer Asjad's profile and projects
+- 🏢 **DecodeLabs & KMA²** — Explains organizational context and brand identity
 - 🆘 **Help Menu** — Full capabilities overview
 - 📜 **History** — View conversation log
 
@@ -76,6 +83,7 @@
 - ✅ Typing animation (web UI)
 - ✅ Mobile responsive design
 - ✅ REST API with health endpoint
+- ✅ **Floating Quick Privacy Button** (Blurs sensitive chat data)
 
 ---
 
@@ -318,6 +326,9 @@ This ensures "Hello!!!" → "hello", "BYE!" → "bye", etc.
 | `farewell` | bye, exit, quit, goodbye... | "Goodbye! See you later!" |
 | `smalltalk` | how are you, how do you do... | "Running at peak performance!" |
 | `identity` | who are you, your name... | "I'm ARIA!" |
+| `developer`| who is the developer, asjad... | "This chatbot was developed by Asjad..." |
+| `projects` | show developer projects... | "Asjad's project portfolio is built around..." |
+| `organization` | what is decodelabs... | "DecodeLabs is a technology-focused..." |
 | `help` | help, commands, menu... | Full help menu |
 | `time` | what time is it... | Current time |
 | `date` | today's date, what day... | Current date |
@@ -396,12 +407,17 @@ By completing this project, you have demonstrated:
 
 ## 🏢 About DecodeLabs
 
-DecodeLabs is an industrial training company focused on real-world tech skills.
+DecodeLabs is an industrial training company focused on real-world tech skills. This project was built as part of their comprehensive AI Engineering track.
 
 - 🌐 **Website:** [www.decodelabs.tech](http://www.decodelabs.tech)
 - 📍 **Location:** Greater Lucknow, India
-- 📞 **Phone:** +91 89330 06408
-- ✉ **Email:** decodelabs.tech@gmail.com
+
+---
+
+## 👨‍💻 About the Developer
+
+**Asjad** is a technology enthusiast and aspiring AI-focused software developer. 
+Passionate about Artificial Intelligence, Data Science, Software Engineering, and Automation, he builds practical technology solutions to solve real-world problems. The K. M. A² identity is his signature branding for premium digital solutions.
 
 ---
 
@@ -413,8 +429,8 @@ This project is part of the DecodeLabs AI Engineering Industrial Training Progra
 
 <div align="center">
 
-Made with ❤️ by the **DecodeLabs AI Engineering Team**
+Made with ❤️ by **Asjad**
 
-*Project 1 of the AI Engineering Track — Batch 2026*
+*Powered by the KMA² Intelligence Framework*
 
 </div>
