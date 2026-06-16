@@ -1,0 +1,24 @@
+{
+  "name": "ARIA — Artificial Rule-based Intelligent Assistant",
+  "version": "1.0.0",
+  "description": "DecodeLabs AI Engineering Project 1 — Rule-Based Chatbot",
+  "author": "DecodeLabs AI Engineering Team",
+  "batch": "2026",
+  "organization": "DecodeLabs",
+  "website": "https://www.decodelabs.tech",
+  "python_requires": ">=3.9",
+  "entry_points": {
+    "cli": "python main.py",
+    "web": "python app.py",
+    "test": "python -m pytest tests/ -v"
+  },
+  "keywords": [
+    "ai",
+    "chatbot",
+    "rule-based",
+    "python",
+    "nlp",
+    "decodelabs",
+    "artificial-intelligence"
+  ]
+}
