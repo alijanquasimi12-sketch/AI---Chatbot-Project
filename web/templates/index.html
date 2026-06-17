@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARIA — KMA² Intelligence Framework</title>
+  <meta name="description" content="ARIA — Artificial Rule-based Intelligent Assistant powered by the KMA² Intelligence Framework. A premium AI chatbot for AI, programming, career guidance, and general knowledge." />
+  <meta name="keywords" content="AI chatbot, KMA squared, rule-based AI, Python, artificial intelligence, career guidance" />
+  <meta name="author" content="KMA² Signature Series" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Favicon: KMA² Logo -->
+  <link rel="icon" type="image/png" href="/static/images/kma2-logo.png" />
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════════════
+       LOADING SCREEN
+  ════════════════════════════════════════════════════════════ -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-logo-wrap">
+        <div class="loading-logo-glow"></div>
+        <img src="/static/images/kma2-logo.png" alt="KMA² Logo" class="loading-logo" id="loadingLogo" />
+      </div>
+      <div class="loading-text-wrap">
+        <p class="loading-brand">K.M.A²</p>
+        <p class="loading-sub">KMA Squares Signature Series</p>
+        <div class="loading-bar-track">
+          <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-status" id="loadingStatus">Initializing intelligence framework...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-area">
+        <div class="logo-icon-wrap">
+          <img src="/static/images/kma2-logo.png" alt="KMA²" class="sidebar-logo-img" />
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">ARIA</span>
+          <span class="logo-sub">KMA² Intelligence Framework</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      
+      <!-- Quick Access Menu -->
+      <div class="settings-menu" id="quickAccessMenu" style="width: 250px; top: 60px; left: 16px; right: auto;">
+        <div class="settings-header">ARIA Quick Access</div>
+        <button class="setting-item action-btn" onclick="openModal('ariaOnlineModal'); document.getElementById('quickAccessMenu').classList.remove('open');">Framework Status</button>
+        <button class="setting-item action-btn" onclick="showCurrentSession(); document.getElementById('quickAccessMenu').classList.remove('open');">Current Session</button>
+        <button class="setting-item action-btn" onclick="showActiveLanguage(); document.getElementById('quickAccessMenu').classList.remove('open');">Active Language</button>
+        <button class="setting-item action-btn" onclick="showActiveMode(); document.getElementById('quickAccessMenu').classList.remove('open');">Active Mode</button>
+        <button class="setting-item action-btn" onclick="showSystemHealth(); document.getElementById('quickAccessMenu').classList.remove('open');">System Health</button>
+        <button class="setting-item action-btn" onclick="openModal('aboutAriaModal'); document.getElementById('quickAccessMenu').classList.remove('open');">About ARIA</button>
+      </div>
+    </div>
+
+    <div class="sidebar-content">
+      <!-- Online Status -->
+      <div class="aria-status-card" style="cursor: pointer;" onclick="openModal('ariaOnlineModal')">
+        <div class="status-pulse-dot"></div>
+        <div class="status-info">
+          <span class="status-name">ARIA Online</span>
+          <span class="status-desc">Rule-Based Engine Active</span>
+        </div>
+      </div>
+
+      <!-- Chats Section -->
+      <div class="sidebar-section" style="margin-bottom: 24px; margin-top: 16px;">
+        <button class="new-chat-btn" id="newChatBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          New Chat
+        </button>
+
+        <div class="chat-list-wrapper">
+          <div class="chat-list" id="chatList">
+            <!-- Recent chat items injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick topics -->
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Quick Topics</p>
+        <button class="quick-btn" data-msg="What is artificial intelligence?">What is AI?</button>
+        <button class="quick-btn" data-msg="Tell me about Python programming">Python Guide</button>
+        <button class="quick-btn" data-msg="What is machine learning?">Machine Learning</button>
+        <button class="quick-btn" data-msg="Give me study tips">Study Tips</button>
+        <button class="quick-btn" data-msg="Motivate me!">Motivation</button>
+        <button class="quick-btn" data-msg="Who developed you?">About Developer</button>
+        <button class="quick-btn" data-msg="What is DecodeLabs?">DecodeLabs</button>
+        <button class="quick-btn" data-msg="Help">Full Help Menu</button>
+      </div>
+
+      <!-- Knowledge coverage -->
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Knowledge Coverage</p>
+        <div class="knowledge-tags">
+          <span class="k-tag">AI & ML</span>
+          <span class="k-tag">Python</span>
+          <span class="k-tag">Data Science</span>
+          <span class="k-tag">Algorithms</span>
+          <span class="k-tag">Web Dev</span>
+          <span class="k-tag">Cloud</span>
+          <span class="k-tag">Security</span>
+          <span class="k-tag">Math</span>
+          <span class="k-tag">Motivation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="reset-btn" id="resetBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        New Session
+      </button>
+      <div class="footer-brand">
+        <img src="/static/images/kma2-logo.png" alt="KMA²" class="footer-logo-img" />
+        <div class="footer-brand-text">
+          <span class="footer-brand-name">K.M.A²</span>
+          <span class="footer-brand-sub">Powered by KMA² Signature Series</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN CHAT AREA
+  ════════════════════════════════════════════════════════════ -->
+  <main class="chat-area" id="chatArea">
+
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="chat-header-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="chat-bot-info">
+          <div class="bot-avatar-wrap">
+            <img src="/static/images/kma2-logo.png" alt="ARIA" class="bot-avatar-logo" />
+            <div class="bot-online-ring"></div>
+          </div>
+          <div>
+            <h1 class="chat-bot-name">ARIA</h1>
+            <div class="status-indicator">
+              <span class="status-dot"></span>
+              <span class="status-text">Online · KMA² Intelligence Framework</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-header-right">
+        <!-- AI Response Mode Dropdown (Moved to input) -->
+        <!-- Export Dropdown -->
+        <div class="settings-wrapper">
+          <button class="settings-btn" id="exportBtn" aria-label="Export" title="Export Conversation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span style="font-size: 0.8rem; font-weight: 500; margin-left: 4px;">Export</span>
+          </button>
+          <div class="settings-menu" id="exportMenu" style="width: 150px;">
+            <button class="setting-item action-btn" onclick="exportChat('pdf')">Export PDF</button>
+            <button class="setting-item action-btn" onclick="exportChat('txt')">Export TXT</button>
+          </div>
+        </div>
+
+        <!-- Language Dropdown -->
+        <div class="settings-wrapper">
+          <button class="badge badge-outline" id="languageIndicatorBtn" style="cursor: pointer; display: flex; align-items: center; gap: 4px; border: 1px solid var(--border-color); background: var(--bg-alt); color: var(--text-primary); font-family: inherit;">
+            <span id="headerLanguageText">Language: English</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="settings-menu" id="languageHeaderMenu" style="width: 160px;">
+            <button class="setting-item action-btn" onclick="setLanguage('en')">English</button>
+            <button class="setting-item action-btn" onclick="setLanguage('ta')">Tamil</button>
+            <button class="setting-item action-btn" onclick="setLanguage('hi')">Hindi</button>
+            <button class="setting-item action-btn" onclick="setLanguage('te')">Telugu</button>
+            <button class="setting-item action-btn" onclick="setLanguage('ml')">Malayalam</button>
+          </div>
+        </div>
+
+        <button class="badge badge-silver" id="kmaSeriesBtn" style="cursor: pointer; border: none; font-family: inherit;">KMA² Signature Series</button>
+        <button class="badge badge-outline" id="v2Btn" style="cursor: pointer; border: 1px solid var(--border-color); background: transparent; color: var(--text-muted); font-family: inherit;">v2.0</button>
+
+        <!-- Settings Dropdown -->
+        <div class="settings-wrapper">
+          <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          
+          <div class="settings-menu" id="settingsMenu">
+            <div class="settings-header">
+              <span>Settings</span>
+            </div>
+            
+            <div class="setting-item toggle-item">
+              <span>Light Mode</span>
+              <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="setting-item">
+              <span style="font-size: 0.9rem; font-weight: 500;">Language</span>
+              <select id="languageSelect" class="settings-select" style="padding: 4px 8px; border-radius: 4px; background: var(--bg-alt); color: var(--text-primary); border: 1px solid var(--border-color);">
+                <option value="en">English</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+                <option value="te">Telugu</option>
+                <option value="ml">Malayalam</option>
+              </select>
+            </div>
+
+            <div class="settings-divider"></div>
+            
+            <button class="setting-item action-btn" id="aboutDevBtn">
+              About Developer
+            </button>
+            <button class="setting-item action-btn" id="aboutProjBtn">
+              About Project
+            </button>
+            
+            <div class="settings-divider"></div>
+            
+            <button class="setting-item action-btn" id="openStatsBtn">
+              📊 Statistics Dashboard
+            </button>
+            <button class="setting-item action-btn" id="settingsSearchBtn">
+              🔍 Search Chats
+            </button>
+            <button class="setting-item action-btn" id="settingsPinnedBtn">
+              📌 Pinned Messages
+            </button>
+            <button class="setting-item action-btn" id="recentlyDeletedBtn">
+              🗑️ Deleted Chats
+            </button>
+            
+            <div class="settings-divider"></div>
+
+            <button class="setting-item action-btn text-danger" id="menuResetBtn">
+              Reset Conversation
+            </button>
+          </div>
+        </div>
+
+        <!-- Privacy Mode Nav Button -->
+        <button class="privacy-nav-btn" id="privacyNavBtn" aria-label="Toggle Privacy Mode" title="Toggle Privacy Mode">
+          <svg class="privacy-icon-unlocked" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+          </svg>
+          <svg class="privacy-icon-locked" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span class="privacy-nav-label">Privacy</span>
+        </button>
+
+      </div>
+    </header>
+
+    <!-- Private Session Active Banner -->
+    <div class="private-session-banner" id="privateSessionBanner" style="display:none;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      <span>Private Session Active</span>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="messages-container" id="messagesContainer" role="log" aria-live="polite" aria-label="Chat messages">
+    </div>
+
+    <!-- Typing indicator (Premium AI Visual) -->
+    <div class="typing-indicator" id="typingIndicator" style="display:none;" aria-label="ARIA is thinking">
+      <div class="ai-processing-visual">
+        <svg class="aria-robot-svg" viewBox="0 0 100 100" width="50" height="50">
+          <defs>
+            <!-- Processing Glow -->
+            <radialGradient id="robotGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--btn-bg)" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="var(--btn-bg)" stop-opacity="0"/>
+            </radialGradient>
+            <!-- Bulb Glow -->
+            <radialGradient id="bulbGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffd700" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="svgGlow">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          <!-- Background processing glow -->
+          <circle cx="50" cy="60" r="30" fill="url(#robotGlow)" class="robot-bg-glow" />
+
+          <!-- Idea Light Bulb (Hidden initially) -->
+          <g class="robot-idea-bulb" opacity="0">
+            <circle cx="50" cy="20" r="15" fill="url(#bulbGlow)" />
+            <path d="M47 15 C 47 10, 53 10, 53 15 C 53 20, 50 22, 50 26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M47 28 H 53 M48 30 H 52 M49 32 H 51" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Sparks -->
+            <line x1="50" y1="5" x2="50" y2="2" stroke="#ffd700" stroke-width="2" class="bulb-spark"/>
+            <line x1="38" y1="12" x2="35" y2="9" stroke="#ffd700" stroke-width="2" class="bulb-spark"/>
+            <line x1="62" y1="12" x2="65" y2="9" stroke="#ffd700" stroke-width="2" class="bulb-spark"/>
+          </g>
+
+          <!-- Robot Head Group -->
+          <g class="robot-head-group">
+            <!-- Head Base -->
+            <rect x="35" y="40" width="30" height="24" rx="4" fill="transparent" stroke="var(--text-primary)" stroke-width="2" />
+            <!-- Antenna -->
+            <line x1="50" y1="40" x2="50" y2="35" stroke="var(--text-primary)" stroke-width="2"/>
+            <circle cx="50" cy="33" r="2" fill="var(--btn-bg)" class="antenna-dot" />
+            <!-- Face Screen -->
+            <rect x="38" y="44" width="24" height="12" rx="2" fill="var(--bg-alt)" stroke="var(--border-color)" stroke-width="1" />
+            <!-- Eyes -->
+            <g class="robot-eyes">
+              <circle cx="44" cy="50" r="2" fill="var(--btn-bg)" class="robot-eye" filter="url(#svgGlow)"/>
+              <circle cx="56" cy="50" r="2" fill="var(--btn-bg)" class="robot-eye" filter="url(#svgGlow)"/>
+            </g>
+          </g>
+
+          <!-- Robot Body -->
+          <path d="M30 80 C 30 70, 70 70, 70 80" fill="none" stroke="var(--text-primary)" stroke-width="2"/>
+          <line x1="40" y1="80" x2="40" y2="85" stroke="var(--text-primary)" stroke-width="2"/>
+          <line x1="60" y1="80" x2="60" y2="85" stroke="var(--text-primary)" stroke-width="2"/>
+
+          <!-- Robot Thinking Arm (Finger on head) -->
+          <g class="robot-thinking-arm">
+            <path d="M25 80 C 15 70, 20 55, 33 50" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="33" cy="50" r="2" fill="var(--text-primary)"/>
+          </g>
+        </svg>
+</div>
+      <div class="thinking-text" id="thinkingText">Analyzing Request...</div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="input-wrapper" style="display:flex; align-items:flex-end; gap:8px;">
+        
+        <div style="position:relative; flex-shrink: 0; margin-bottom: 8px;">
+          <button id="modePlusBtn" class="action-btn" aria-label="Select AI Mode" title="Select AI Mode" style="border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-primary); cursor: pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="settings-menu" id="modePlusMenu" style="width: 220px; bottom: 45px; left: 0; right: auto; top: auto;">
+            <button class="setting-item action-btn" onclick="setResponseMode('normal')" style="justify-content: flex-start; gap: 8px;"><span>⚖️</span> Standard Mode</button>
+            <button class="setting-item action-btn" onclick="setResponseMode('fast')" style="justify-content: flex-start; gap: 8px;"><span>⚡</span> Fast Mode</button>
+            <button class="setting-item action-btn" onclick="setResponseMode('deep_thinking')" style="justify-content: flex-start; gap: 8px;"><span>🧠</span> Deep Thinking Mode</button>
+            <button class="setting-item action-btn" onclick="setResponseMode('detailed')" style="justify-content: flex-start; gap: 8px;"><span>📚</span> Detailed Mode</button>
+            <button class="setting-item action-btn" onclick="setResponseMode('interview')" style="justify-content: flex-start; gap: 8px;"><span>🎯</span> Interview Mode</button>
+          </div>
+        </div>
+
+        <div style="flex-grow:1; position:relative;">
+          <div id="activeModeDisplay" style="font-size: 0.8rem; font-weight: 600; color: var(--text-silver); margin-bottom: 6px;">[⚖️ Standard Mode]</div>
+          <textarea
+            id="messageInput"
+            class="message-input"
+            placeholder="Ask ARIA anything... (Press Enter to send)"
+            rows="1"
+            maxlength="500"
+            aria-label="Message input"
+            autocomplete="off"
+            spellcheck="true"
+            style="width: 100%;"
+          ></textarea>
+        </div>
+
+        <div class="input-controls" style="flex-shrink:0; margin-bottom:8px;">
+          <span class="char-count" id="charCount">0/500</span>
+          <!-- Voice Input Button -->
+          <button class="mic-btn" id="micBtn" aria-label="Voice input" title="Voice Input" type="button">
+            <svg class="mic-icon-default" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <svg class="mic-icon-active" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+              <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" fill="none"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <button class="send-btn" id="sendBtn" aria-label="Send message" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="input-hint">ARIA — KMA² Signature Series &nbsp;·&nbsp; Rule-Based Intelligence Engine</p>
+    </div>
+
+  </main>
+
+  <!-- Overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODALS
+  ════════════════════════════════════════════════════════════ -->
+  <!-- Premium Dev Intro Overlay -->
+  <div id="devIntroOverlay" class="dev-intro-overlay">
+    <div class="dev-intro-logo-wrap">
+      <img src="/static/images/kma2-logo.png" alt="KMA² Silver Logo" class="dev-intro-logo" />
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    
+    <!-- About Developer Modal -->
+    <div class="custom-modal" id="devModal" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">About the Developer</h3>
+        <button class="modal-close" data-close="devModal">×</button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <div class="dev-profile" style="margin-bottom: 24px;">
+          <div class="dev-avatar">A</div>
+          <h4><strong>Asjad</strong></h4>
+          <p class="dev-subtitle" style="color: var(--accent-gold);"><strong>AI</strong> & <strong>Software Engineer</strong></p>
+        </div>
+        
+        <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid var(--accent-silver);">
+          <h5 style="color: var(--text-silver); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 8px;">Introduction</h5>
+          <p>This chatbot was designed and developed by <strong>Asjad</strong>, an aspiring <strong>AI</strong>-focused <strong>Software Engineer</strong> passionate about creating intelligent digital experiences and modern software solutions.</p>
+          <p>The project represents a combination of technical <strong>Problem Solving</strong>, interface design, structured logic systems, and continuous experimentation with emerging technologies.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h5 style="color: var(--text-silver); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 12px;">Core Strengths</h5>
+          <ul class="modal-list dev-premium-list">
+            <li><strong>Chatbot Engineering</strong> & <strong>Rule-Based AI</strong> Systems</li>
+            <li><strong>Python</strong> Backend Development (<strong>Flask</strong>)</li>
+            <li>Frontend Interface Design & <strong>UI/UX</strong></li>
+            <li><strong>Problem Solving</strong> & Logical System Architecture</li>
+            <li><strong>AI</strong> Learning & Intelligent Workflow Design</li>
+            <li>Multilingual User Experience Development</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h5 style="color: var(--text-silver); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 12px;">Project Highlights</h5>
+          <ul class="modal-list dev-premium-list">
+            <li>Multi-language conversation support</li>
+            <li>Multiple response modes</li>
+            <li><strong>Session Management</strong></li>
+            <li>Chat recovery system</li>
+            <li><strong>PDF Export</strong> functionality</li>
+            <li>Premium <strong>UI/UX</strong> experience</li>
+            <li>Dynamic framework monitoring</li>
+            <li>Custom <strong>AI</strong> interaction system</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent-gold);">
+          <h5 style="color: var(--text-silver); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 8px;">Development Philosophy</h5>
+          <p>Focused on building software that is clean, practical, user-friendly, and continuously improving through experimentation and learning.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 24px;">
+          <h5 style="color: var(--text-silver); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 8px;"><strong>Future Vision</strong></h5>
+          <p style="font-style: italic; color: var(--text-muted); font-size: 0.85rem;">To create intelligent systems that combine usability, creativity, and modern <strong>AI</strong>-driven experiences while continuously expanding technical expertise.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Project Modal -->
+    <div class="custom-modal" id="projModal">
+      <div class="modal-header">
+        <h3 class="modal-title">About ARIA & KMA²</h3>
+        <button class="modal-close" data-close="projModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="proj-logo-wrap">
+          <img src="/static/images/kma2-logo.png" alt="KMA²" />
+        </div>
+        <p><strong>ARIA</strong> is an Artificial Rule-based Intelligent Assistant powered by the <strong>KMA² Intelligence Framework</strong>.</p>
+        <p><strong>K. M. A²</strong> is the signature project identity used across software, AI, and technology projects created by Asjad. It represents innovation, engineering excellence, creativity, and continuous growth.</p>
+        <div class="settings-divider" style="margin:16px 0;"></div>
+        <p>This project was developed as part of <strong>DecodeLabs</strong>, a technology-focused learning platform helping developers build practical software through hands-on experience.</p>
+      </div>
+    </div>
+
+    <!-- Recently Deleted Chats Modal -->
+    <div class="custom-modal" id="deletedChatsModal" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Recently Deleted Chats</h3>
+        <div>
+          <button id="clearAllDeletedBtn" style="display:none; background: #e74c3c; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 12px; font-weight: 500; transition: background 0.2s;">Clear All</button>
+          <button class="modal-close" data-close="deletedChatsModal">×</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="deletedChatsContainer" class="deleted-chats-container">
+          <!-- Dynamic deleted chats injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear All Deleted Confirmation Modal -->
+    <div class="custom-modal" id="clearAllConfirmModal" style="max-width: 400px; z-index: 10001;">
+      <div class="modal-header">
+        <h3 class="modal-title text-danger">Clear All Deleted Chats?</h3>
+        <button class="modal-close" data-close="clearAllConfirmModal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>This action will permanently delete all chats in the Recently Deleted Chats section.</p>
+        <p class="text-danger" style="font-weight: 600; margin-top: 8px;">This action cannot be undone.</p>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button style="padding: 8px 16px; border-radius: 6px; background: var(--bg-alt); color: var(--text-primary); border: 1px solid var(--border-color); cursor: pointer; font-weight: 500;" data-close="clearAllConfirmModal">Cancel</button>
+          <button id="confirmClearAllBtn" style="padding: 8px 16px; border-radius: 6px; background: #e74c3c; color: #fff; border: none; cursor: pointer; font-weight: 500; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">Delete All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logo Preview Modal -->
+    <div class="custom-modal logo-preview-modal" id="logoPreviewModal">
+      <div class="modal-body text-center">
+        <div class="preview-header">
+          <h3 class="modal-title" style="margin-bottom: 0; color: var(--text-silver); font-family: 'Orbitron', sans-serif;">K. M. A² Logo Preview</h3>
+        </div>
+        <div class="logo-preview-wrap">
+          <img src="/static/images/kma2-logo.png" alt="KMA² Silver Logo" class="large-preview-logo" />
+        </div>
+        <p class="preview-brand">K. M. A² Signature Series</p>
+        <p class="preview-sub">Powered by the<br>K. M. A² Intelligence Framework</p>
+        <button class="preview-close-btn" data-close="logoPreviewModal">Close</button>
+      </div>
+    </div>
+
+    <!-- KMA² Signature Series Modal -->
+    <div class="custom-modal" id="kmaModal">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--text-silver); font-family: 'Orbitron', sans-serif;">K. M. A² Signature Series</h3>
+        <button class="modal-close" data-close="kmaModal">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 16px;">
+          The <strong>K. M. A² Signature Series</strong> represents a collection of premium intelligent software products built under a unified engineering and design philosophy.
+        </p>
+        <ul class="modal-list" style="margin-bottom: 16px;">
+          <li><strong>Premium project collection:</strong> Exclusive, high-end software experiences.</li>
+          <li><strong>Consistent engineering standards:</strong> Built with robust and scalable architectures.</li>
+          <li><strong>Innovation-first approach:</strong> Continuously pushing boundaries.</li>
+          <li><strong>Advanced AI experiences:</strong> Integrating state-of-the-art intelligent systems.</li>
+          <li><strong>Modern software architecture:</strong> Ensuring high performance and maintainability.</li>
+          <li><strong>Premium UI/UX principles:</strong> Delivering intuitive and visually stunning interfaces.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- V2.0 Modal -->
+    <div class="custom-modal" id="v2Modal">
+      <div class="modal-header">
+        <h3 class="modal-title">ARIA V2.0 Intelligence Engine</h3>
+        <button class="modal-close" data-close="v2Modal">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 16px;">The V2.0 upgrade brings massive improvements to the ARIA chatbot system:</p>
+        <ul class="modal-list">
+          <li>Improved response accuracy</li>
+          <li>Better intent recognition</li>
+          <li>Smarter conversation flow</li>
+          <li>Multi-language support</li>
+          <li>Enhanced knowledge routing</li>
+          <li>Faster interaction system</li>
+          <li>Premium user experience</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Privacy Notification Toast -->
+    <div id="privacyToast" class="privacy-toast">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      <span>Private Session Active</span>
+    </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       STATISTICS MODAL
+  ════════════════════════════════════════════════════════════ -->
+  <div class="custom-modal" id="statsModal">
+    <div class="modal-header">
+      <h3 class="modal-title">Conversation Statistics</h3>
+      <button class="modal-close" data-close="statsModal">×</button>
+    </div>
+    <div class="modal-body stats-dashboard-grid" style="margin-top: 0;">
+      <div class="dash-card">
+        <div class="dash-icon" style="color: var(--text-silver);">💬</div>
+        <div class="dash-info">
+          <span class="dash-label">Total Chats</span>
+          <span class="dash-value" id="dashChats">0</span>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon" style="color: var(--btn-bg);">✉️</div>
+        <div class="dash-info">
+          <span class="dash-label">Total Messages</span>
+          <span class="dash-value" id="dashMessages">0</span>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon" style="color: #4CAF50;">📌</div>
+        <div class="dash-info">
+          <span class="dash-label">Pinned Messages</span>
+          <span class="dash-value" id="dashPinned">0</span>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon" style="color: #f39c12;">⏱️</div>
+        <div class="dash-info">
+          <span class="dash-label">Session Duration</span>
+          <span class="dash-value" id="dashDuration">0m 0s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SEARCH MODAL
+  ════════════════════════════════════════════════════════════ -->
+  <div class="custom-modal" id="searchModal">
+    <div class="modal-header">
+      <h3 class="modal-title">Search Chats</h3>
+      <button class="modal-close" data-close="searchModal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="chat-search-wrap" style="margin-bottom: 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="chatSearchInput" class="chat-search-input" placeholder="Search by title or text..." autocomplete="off" style="width: 100%; padding: 10px 12px 10px 36px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-alt); color: var(--text-primary);">
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Matching Chats:</p>
+      <div id="searchResultsList" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+        <!-- Search results injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PINNED MESSAGES MODAL
+  ════════════════════════════════════════════════════════════ -->
+  <div class="custom-modal" id="pinnedMessagesModal" style="max-width: 600px;">
+    <div class="modal-header">
+      <h3 class="modal-title">Pinned Messages</h3>
+      <button class="modal-close" data-close="pinnedMessagesModal">×</button>
+    </div>
+    <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+      <div id="pinnedMessagesList" style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Pinned messages injected here -->
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="ariaOnlineModal" style="max-width: 500px;">
+    <div class="modal-header">
+      <h3 class="modal-title">ARIA Framework Status</h3>
+      <button class="modal-close" data-close="ariaOnlineModal">×</button>
+    </div>
+    <div class="modal-body" style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+      <p style="margin-bottom: 16px;">ARIA is currently operating normally and all core framework services are available.</p>
+      <div style="background: var(--bg-surface); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 16px;">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">🟢 Framework Online</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">🟢 Rule-Based Engine Active</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">🟢 Language Engine Active</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">🟢 Session Manager Active</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">🟢 Export System Ready</li>
+          <li style="display: flex; align-items: center; gap: 8px;">🟢 Knowledge Base Operational</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="quickAccessInfoModal" style="max-width: 400px;">
+    <div class="modal-header">
+      <h3 class="modal-title" id="qaModalTitle">Information</h3>
+      <button class="modal-close" data-close="quickAccessInfoModal">×</button>
+    </div>
+    <div class="modal-body" id="qaModalBody" style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+    </div>
+  </div>
+
+  <div class="custom-modal" id="aboutAriaModal" style="max-width: 500px;">
+    <div class="modal-header">
+      <h3 class="modal-title">About ARIA</h3>
+      <button class="modal-close" data-close="aboutAriaModal">×</button>
+    </div>
+    <div class="modal-body" style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+      <p style="margin-bottom: 16px;"><strong>ARIA</strong> is an advanced, rule-based conversational intelligence designed to operate seamlessly across multiple languages and cognitive modes.</p>
+      <div style="background: var(--bg-surface); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 16px;">
+        <h4 style="color: var(--accent-gold); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600;">Core Purpose & Capabilities:</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><span>🔹</span> Deliver highly contextual and accurate responses</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><span>🔹</span> Seamless cross-language communication</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><span>🔹</span> Specialized cognitive thinking models</li>
+          <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><span>🔹</span> Real-time data parsing and export generation</li>
+        </ul>
+      </div>
+      <p style="margin-bottom: 0;">Powered exclusively by the <strong>KMA² Intelligence Framework</strong>, ARIA ensures privacy, stability, and premium user interaction.</p>
+    </div>
+  </div>
+
+  </div> <!-- End of modalOverlay -->
+
+  <script src="/static/js/chat.js"></script>
+</body>
+</html>

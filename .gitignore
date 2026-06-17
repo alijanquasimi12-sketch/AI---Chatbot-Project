@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+logs/
+.env
+temp_repo/
+*.sqlite3
+.tempmediaStorage/
+Robot gesture designs-1.jpeg
+Robot gesture designs-2.jpeg
+Robot gesture designs-3.jpeg
+robot1.jpeg
+robot2.jpeg
+robot3.jpeg
