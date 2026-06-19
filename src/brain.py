@@ -1023,7 +1023,8 @@ class KnowledgeBase:
         "  PORTFOLIO & IDENTITY\n"
         "    Who developed you?, What is K. M. A²?, What is DecodeLabs?\n\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-        "Just type naturally — I understand keywords and phrases!"
+        "Just type naturally — I understand keywords and phrases!\n"
+        "(Type 'help' for this menu, or 'bye' to exit)"
     )
 
     # ── Gratitude ──────────────────────────────────────────────────────────────
@@ -1765,7 +1766,7 @@ class ChatBot:
 
         # ── RULE 9: Time query ─────────────────────────────────────────────────
         TIME_TRIGGERS = [
-            r"what time is it", r"current time", r"time now", r"what.?s the time",
+            r"what time is it", r"current time", r"time now", r"what.?s the time", r"what is the time",
             r"tell me the time",
         ]
         if self._contains_any(normalized, TIME_TRIGGERS):
@@ -1965,6 +1966,10 @@ class ChatBot:
 
         # ── RULE 38: Entertainment / Riddles / Jokes ───────────────────────────
         if self._contains_any(normalized, self.kb.ENTERTAINMENT_TRIGGERS) or self._contains_any(normalized, self.kb.JOKE_TRIGGERS) or self._contains_any(normalized, self.kb.RIDDLE_TRIGGERS):
+            if self._contains_any(normalized, self.kb.JOKE_TRIGGERS):
+                response = random.choice(self.kb.JOKES)
+                self._log_message("bot", response)
+                return response, "joke"
             response = random.choice(self.kb.ENTERTAINMENT_RESPONSES)
             self._log_message("bot", response)
             return response, "entertainment"
@@ -2049,13 +2054,13 @@ class ChatBot:
             ("data science",   self.kb.DATA_SCIENCE_RESPONSES,   "ai_knowledge"),
             ("web dev",        self.kb.WEBDEV_RESPONSES,         "programming"),
             ("artificial intel",self.kb.AI_RESPONSES,            "ai_knowledge"),
-            ("career",         self.kb.CAREER_SE_RESPONSES,      "career"),
             ("study",          self.kb.STUDY_RESPONSES,          "education"),
             ("motivat",        self.kb.MOTIVATIONAL_QUOTES,      "motivation"),
         ]
 
         for phrase, responses, category in FUZZY_TOPIC_PHRASES:
-            if SmartMatcher.fuzzy_contains(smart_normalized, phrase, tolerance=1):
+            tol = 1 if len(phrase.split()) > 1 else 0
+            if SmartMatcher.fuzzy_contains(smart_normalized, phrase, tolerance=tol):
                 response = random.choice(responses)
                 self._log_message("bot", response)
                 return response, category
